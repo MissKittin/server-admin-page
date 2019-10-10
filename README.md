@@ -1,6 +1,7 @@
 # server-admin-page
 control your server/router from web page<br>
 this is 3rd version of this application<br><br>
+with my modules it looks like this:<br>
 ![alt text](https://raw.githubusercontent.com/MissKittin/server-admin-page/master/preview.png)
 symbolic links to lib/prevent-index.php:<br><br>
 home-plugins/index.php<br>

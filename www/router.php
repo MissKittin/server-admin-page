@@ -5,7 +5,7 @@
 	$system_title='Title';
 
 	// router script
-	// shell.sh absolute denied
+	// *.sh and *.rc absolute denied
 	// readme texts also
 	// menu.html in address bar denied
 
@@ -47,7 +47,7 @@
 	}
 
 	// denied file types
-	if(preg_match('/\.(?:sh|txt)$/', $_SERVER['REQUEST_URI'])) // if type ****.xxx in url
+	if(preg_match('/\.(?:sh|rc|txt)$/', $_SERVER['REQUEST_URI'])) // if type ****.xxx in url
 	{
 		echo '<html>
 			<head>

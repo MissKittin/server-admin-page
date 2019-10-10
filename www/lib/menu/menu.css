@@ -1,0 +1,11 @@
+#menu {
+	/* border: 1px solid #000000; */
+	float: left;
+	width: 200px;
+	height: 90%;
+	margin-bottom: 5px;
+}
+#menu a, #menu a:hover, #menu a:visited {
+	text-decoration: none;
+	color: #0000FF;
+}

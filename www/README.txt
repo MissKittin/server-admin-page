@@ -5,6 +5,7 @@ Executing trip:
 router.php	->index.php	->lib/home.php	->lib/prevent-direct.php	-> include lib/theme.css, lib/favicon/favicon.php, lib/header.php, lib/menu/menu.php, home-plugins/* (all enabled)	->exit()
 						->lib/login/login.php	->if not logged: lib/login/login-form.php	->include login-plugins/* (all enabled)	->exit()
 							->include lib/login/login-config.php
+						->lib/htmlheaders.php
 
 Modules:
 Login protection (theme included from main): lib/login
@@ -15,6 +16,7 @@ Directory enter prevention: lib/prevent-index.php (dependent on prevent-direct.p
 Theme: lib/theme.css, lib/header.php
 Plugins on login page: login-plugins
 Plugins on home page: home-plugins
+HTML headers: lib/htmlheaders.php, lib/htmlheaders
 
 sample-page is one-menu-entry page
 sample-menu-addon has user-defined menu section

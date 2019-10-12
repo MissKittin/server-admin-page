@@ -4,6 +4,7 @@
 	$reload=function()
 	{
 		global $system_location_html; // this must be!
+		global $system_location_php; // for htmlheaders.php
 
 		global $system_title;
 		echo '
@@ -11,10 +12,9 @@
 			<html>
 				<head>
 					<title>'.$system_title.'</title>
-					<meta charset="utf-8">
+					'; include($system_location_php . '/lib/htmlheaders.php'); echo '
 					<meta name="viewport" content="width=device-width, initial-scale=1">
 					<meta http-equiv="refresh" content="0">
-					<link rel="stylesheet" type="text/css" href="' . $system_location_html . '/lib/theme.css">
 				</head>
 				<body>
 					<h1>Loading...</h1>

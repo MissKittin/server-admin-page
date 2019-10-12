@@ -3,9 +3,7 @@
 <html>
 	<head>
 		<title><?php echo $system_title; ?> Login</title>
-		<meta charset="utf-8">
-		<link rel="stylesheet" type="text/css" href="<?php echo $system_location_html;?>/lib/theme.css">
-		<?php include($system_location_php . '/lib/favicon/favicon.php'); ?>
+		<?php include($system_location_php . '/lib/htmlheaders.php'); ?>
 	</head>
 	<body>
 		<div>

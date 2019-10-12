@@ -2,7 +2,7 @@
 	// Scripts settings
 	$system_location_html=''; // none if in root directory, for browser
 	$system_location_php=$_SERVER['DOCUMENT_ROOT'] . ''; // for php scripts
-	$system_title='Title';
+	$system_title='Router';
 
 	// router script
 	// *.sh and *.rc absolute denied
@@ -19,6 +19,7 @@
 			<html>
 				<head>
 					<title>'.$system_title.'</title>
+					'; include($system_location_php . '/lib/htmlheaders.php'); echo '
 					<meta http-equiv="refresh" content="0; url=.">
 				</head>
 			</html>
@@ -39,6 +40,7 @@
 			<html>
 				<head>
 					<title>'.$system_title.'</title>
+					'; include($system_location_php . '/lib/htmlheaders.php'); echo '
 					<meta http-equiv="refresh" content="0; url=' . $url . '">
 				</head>
 			</html>
@@ -52,6 +54,7 @@
 		echo '<html>
 			<head>
 				<title>'.$system_title.'</title>
+				'; include($system_location_php . '/lib/htmlheaders.php'); echo '
 				<meta http-equiv="refresh" content="0; url=.">
 			</head>
 		</html>';

@@ -1,7 +1,7 @@
 <?php include($system_location_php . '/lib/prevent-direct.php'); prevent_direct('login.php'); ?>
 <?php
 	//functions
-	function reload()
+	$reload=function()
 	{
 		global $system_location_html; // this must be!
 
@@ -21,7 +21,7 @@
 				</body>
 			</html>
 		';
-	}
+	};
 
 	//header
 	include($system_location_php . '/lib/login/login-config.php');
@@ -37,7 +37,7 @@
 			error_log('i Logout from ' . $_SERVER['REMOTE_ADDR'], 0);
 			$_SESSION['logged']=false;
 			session_destroy();
-			reload();
+			$reload();
 			exit();
 		}
 
@@ -52,7 +52,7 @@
 			$_SESSION['logged']=false;
 			session_destroy();
 			session_regenerate_id(false); // reset session
-			reload();
+			$reload();
 			exit();
 		}
 	}
@@ -72,7 +72,7 @@
 							$_SESSION['logged']=true; // success!!!
 							$_SESSION['logged_ip']=$_SERVER['REMOTE_ADDR']; // log for cookie attack detection
 							$_SESSION['user_agent']=$_SERVER['HTTP_USER_AGENT']; // log for cookie attack detection
-							reload();
+							$reload();
 							exit();
 						}
 				}
@@ -90,4 +90,7 @@
 		include($system_location_php . '/lib/login/login-form.php');
 		exit();
 	}
+
+	// remove reload function
+	unset($reload);
 ?>

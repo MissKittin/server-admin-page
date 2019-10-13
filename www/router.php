@@ -9,7 +9,7 @@
 		- handles 404 file not found error
 		- deny access to *.sh, *.rc and *.txt files
 		- preventing access to module if index.php is in URI
-		- deny access to 'disabled' file
+		- deny access to files: 'disabled', 'description.php' and 'menu-addon.php'
 		- deny access to disabled modules
 	*/
 
@@ -79,8 +79,8 @@
 		exit();
 	}
 
-	// fake 404 if path point to file 'disabled'
-	if(strtok(substr($_SERVER['REQUEST_URI'], strrpos($_SERVER['REQUEST_URI'], '/') + 1), '?') === 'disabled')
+	// fake 404 if path point to file 'disabled', 'description.php' and 'menu-addon.php'
+	if((strtok(substr($_SERVER['REQUEST_URI'], strrpos($_SERVER['REQUEST_URI'], '/') + 1), '?') === 'disabled') || (strtok(substr($_SERVER['REQUEST_URI'], strrpos($_SERVER['REQUEST_URI'], '/') + 1), '?') === 'description.php') || (strtok(substr($_SERVER['REQUEST_URI'], strrpos($_SERVER['REQUEST_URI'], '/') + 1), '?') === 'menu-addon.php'))
 	{
 		http_response_code(404);
 		echo '<html>

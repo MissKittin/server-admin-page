@@ -4,11 +4,15 @@
 		function goto_home()
 		{
 			global $system_title;
+			global $system_location_php;
+
+			http_response_code(404);
 			echo '
 				<!DOCTYPE html>
 				<html>
 					<head>
 						<title>'.$system_title.'</title>
+						'; include($system_location_php . '/lib/htmlheaders.php'); echo '
 						<meta http-equiv="refresh" content="0; url=' . $system_location_html . '/">
 					</head>
 				</html>

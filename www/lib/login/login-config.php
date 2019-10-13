@@ -2,6 +2,10 @@
 <?php
 	$login_method='multi';
 
+	// multi method config
 	$USER=['yourusername'];
 	$PASSWORD=['yourpassword'];
+
+	// pam method config
+	$login_allowed_users=['yourlogintolinux'];
 ?>

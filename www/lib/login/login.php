@@ -63,11 +63,10 @@
 		case 'multi':
 			if(isset($_POST['user']) && isset($_POST['password']))
 				for($i=0, $cnt=count($USER); $i<$cnt; $i++)
-				{
 					if($_POST['user'] === $USER[$i]) // find user
 						if($_POST['password'] === $PASSWORD[$i]) // check passwd
 						{
-							error_log('i Successfully logged from ' . $_SERVER['REMOTE_ADDR'], 0);
+							error_log('i Successfully logged from ' . $_SERVER['REMOTE_ADDR'] . ' by multi method', 0);
 							$_SESSION['logged_user']=$USER[$i];
 							$_SESSION['logged']=true; // success!!!
 							$_SESSION['logged_ip']=$_SERVER['REMOTE_ADDR']; // log for cookie attack detection
@@ -75,7 +74,35 @@
 							$reload();
 							exit();
 						}
-				}
+		break;
+		case 'pam':
+			// unix auth
+			if(isset($_POST['user']) && isset($_POST['password']))
+			{
+				$login_userName=$_POST['user'];
+				$login_userPasswd=$_POST['password'];
+				$login_passwdFile='/etc/shadow';
+			
+				for($i=0, $cnt=count($login_allowed_users); $i<$cnt; $i++)
+					if($_POST['user'] === $login_allowed_users[$i]) // allowed
+					{
+						$login_users=file($login_passwdFile);
+						if($login_user=preg_grep("/^$login_userName/",$login_users))
+						{
+							list(,$login_passwdInDB)=explode(':',array_pop($login_user));
+							if(crypt($login_userPasswd,$login_passwdInDB) == $login_passwdInDB)
+							{
+								error_log('i Successfully logged from ' . $_SERVER['REMOTE_ADDR'] . ' by pam method', 0);
+								$_SESSION['logged_user']=$login_allowed_users[$i];
+								$_SESSION['logged']=true; // success!!!
+								$_SESSION['logged_ip']=$_SERVER['REMOTE_ADDR']; // log for cookie attack detection
+								$_SESSION['user_agent']=$_SERVER['HTTP_USER_AGENT']; // log for cookie attack detection
+								$reload();
+								exit();
+							}
+						}
+					}
+			}
 		break;
 		case 'script_already_logged':
 			if(!isset($session_regenerate)) // disable session regenerating (set it in script before include)
@@ -83,7 +110,7 @@
 		break;
 	}
 	unset($login_method);
-	unset($USER); unset($PASSWORD); // clear environment (protect database)
+	unset($USER); unset($PASSWORD); unset($login_allowed_users); // clear environment (protect database)
 
 	if(!$_SESSION['logged']) // login form
 	{

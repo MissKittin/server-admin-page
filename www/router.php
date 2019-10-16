@@ -5,6 +5,7 @@
 	$system_title='Router';
 
 	/* This script:
+		- deny access to all scripts if 'DISABLED.MAIN' exists
 		- hides itself
 		- handles 404 file not found error
 		- deny access to *.sh, *.rc and *.txt files
@@ -12,6 +13,41 @@
 		- deny access to files: 'disabled', 'description.php' and 'menu-addon.php'
 		- deny access to disabled modules
 	*/
+
+	// disable switch
+	if((file_exists($system_location_php . '/DISABLED.MAIN')) && ($_SERVER['REMOTE_ADDR'] != '127.0.0.1'))
+	{
+		echo '<!DOCTYPE html>
+			<html>
+				<head>
+					<title>'.$system_title.'</title>
+					<meta charset="utf-8">
+					<meta name="viewport" content="width=device-width, initial-scale=1">
+					<style>
+						body {
+							color: #ffffff;
+							background-color: #000000;
+						}
+						h1 {
+							position: fixed;
+							top: 45%;
+							left: 45%;
+							text-align: center;
+						}
+						@media only screen and (max-width: 850px) {
+							h1 {
+								left: 35%;
+							}
+						}
+					</style>
+				</head>
+				<body>
+					<h1>Disabled</h1>
+				</body>
+			</html>
+		';
+		exit();
+	}
 
 	// hide this script - fake 404
 	if(strtok($_SERVER['REQUEST_URI'], '?') === $system_location_html . '/router.php')

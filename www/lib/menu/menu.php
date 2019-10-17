@@ -76,9 +76,9 @@
 			// Create category
 			if($categories[$i] != 'none') // none category is omitted
 				if($i == 0) // if first category
-					echo '&#9484;' . $categories[$i] . '<br>';
+					echo '&#9484;' . $categories[$i] . '<br>' . "\n";
 				else // is in the middle
-					echo '&#9500;' . $categories[$i] . '<br>';
+					echo '&#9500;' . $categories[$i] . '<br>' . "\n";
 
 			foreach($plugins as $plugin)
 				if(($plugin != '.') && ($plugin != '..') && (is_dir('./' . $plugin))) // directory filter
@@ -88,9 +88,9 @@
 						include './' . $plugin . '/description.php';
 						if($category === $categories[$i]) // check if category is correct
 							if($plugin === $plugin_last)
-								echo '&#9492;&#9472;<a href="' . $system_location_html . '/' . $plugin . '">' . $name . '</a><br>';
+								echo '&#9492;&#9472;<a href="' . $system_location_html . '/' . $plugin . '">' . $name . '</a><br>' . "\n";
 							else
-								echo '&#9500;&#9472;<a href="' . $system_location_html . '/' . $plugin . '">' . $name . '</a><br>';
+								echo '&#9500;&#9472;<a href="' . $system_location_html . '/' . $plugin . '">' . $name . '</a><br>' . "\n";
 					}
 					if(file_exists($system_location_php . '/' . $plugin . '/description.php') && (file_exists($system_location_php . '/' . $plugin . '/menu-addon.php')) && (!file_exists($system_location_php . '/' . $plugin . '/disabled'))) // if it's menu addon
 					{

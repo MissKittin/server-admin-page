@@ -32,7 +32,7 @@
 
 	//logout
 	if(isset($_POST['logout']))
-		if($_POST['logout'] == 'logout')
+		if(($_POST['logout'] === 'logout') || ($_POST['logout'] === 'Logout'))
 		{
 			error_log('i Logout from ' . $_SERVER['REMOTE_ADDR'], 0);
 			$_SESSION['logged']=false;

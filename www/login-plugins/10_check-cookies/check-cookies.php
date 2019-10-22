@@ -1,6 +1,6 @@
 <?php include($system_location_php . '/lib/prevent-direct.php'); prevent_direct('sample-widget-php'); ?>
 <div>
-	<span id="cookiesy" style="display: none; color: #ff0000;">&#9760; The application will not work until you enable cookies</span>
+	<span id="cookiesy" style="display: none; color: #ff0000;">&#9760; This application will not work until you enable cookies</span>
 	<script>
 		function getCookie(name)
 		{

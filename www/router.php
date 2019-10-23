@@ -65,8 +65,7 @@
 		exit();
 	}
 
-	// 404 handle
-	/*not file exist cut after $CHAR absolute path                           $CHAR */
+	// 404 handle- for files
 	if(!file_exists(strtok($_SERVER['DOCUMENT_ROOT'].$_SERVER['REQUEST_URI'], '?')))
 	{
 		http_response_code(404);
@@ -86,6 +85,30 @@
 		';
 		exit();
 	}
+
+	// 404 handle - for dirs
+	if(is_dir(strtok($_SERVER['DOCUMENT_ROOT'].$_SERVER['REQUEST_URI'], '?')))
+		if((file_exists(strtok($_SERVER['DOCUMENT_ROOT'].$_SERVER['REQUEST_URI'], '?') . '/index.php')) || (file_exists(strtok($_SERVER['DOCUMENT_ROOT'].$_SERVER['REQUEST_URI'], '?') . '/index.html')))
+		{ /* everything is ok */ }
+		else
+		{
+			http_response_code(404);
+			if(substr(strtok($_SERVER['REQUEST_URI'], '?'), -1) === '/')
+				$url='..';
+			else
+				$url='.';
+
+			echo '<!DOCTYPE html>
+				<html>
+					<head>
+						<title>'.$system_title.'</title>
+						'; include($system_location_php . '/lib/htmlheaders.php'); echo '
+						<meta http-equiv="refresh" content="0; url=' . $url . '">
+					</head>
+				</html>
+			';
+			exit();
+		}
 
 	// denied file types
 	if(preg_match('/\.(?:sh|rc|txt)$/', $_SERVER['REQUEST_URI'])) // if type ****.xxx in url

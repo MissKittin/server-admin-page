@@ -1,4 +1,5 @@
 <?php include($system_location_php . '/lib/prevent-direct.php'); prevent_direct('menu.php'); ?>
+<?php if(isset($_SESSION['logged'])) { if($_SESSION['logged']) { /* dont display menu if not logged (1) */ ?> 
 <link rel="stylesheet" type="text/css" href="<?php echo $system_location_html; ?>/lib/menu/menu.css">
 
 <div id="menu">
@@ -107,3 +108,4 @@
 
 	<form action='.' method="post"><button type="submit" name="logout" value="logout">Logout</button></form>
 </div>
+<?php }} /* dont display menu if not logged (2) */ ?>

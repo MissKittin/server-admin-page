@@ -21,7 +21,7 @@
 
 		function prevent_direct($name)
 		{
-			if(substr($_SERVER['REQUEST_URI'], strrpos($_SERVER['REQUEST_URI'], '/')) === "/$name")
+			if(substr(strtok($_SERVER['REQUEST_URI'], '?'), strrpos(strtok($_SERVER['REQUEST_URI'], '?'), '/')) === "/$name")
 			{
 				goto_home();
 				exit();

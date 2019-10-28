@@ -2,7 +2,8 @@ html, body {
 	/* height: 100%; */
 }
 body {
-	background-color: #cccccc;
+	/* background-color: #cccccc; /* szarobury */
+	background-color: #eeedd0; /* kremowy */
 }
 #content {
 	margin-left: 201px;

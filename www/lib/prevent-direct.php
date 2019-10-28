@@ -5,6 +5,7 @@
 		{
 			global $system_title;
 			global $system_location_php;
+			global $system_location_html;
 
 			http_response_code(404);
 			echo '

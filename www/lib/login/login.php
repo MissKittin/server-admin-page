@@ -1,18 +1,15 @@
-<?php include($system_location_php . '/lib/prevent-direct.php'); prevent_direct('login.php'); ?>
+<?php include($system['location_php'] . '/lib/prevent-direct.php'); prevent_direct('login.php'); ?>
 <?php
 	//functions
 	$reload=function()
 	{
-		global $system_location_html; // this must be!
-		global $system_location_php; // for htmlheaders.php
-
-		global $system_title;
+		global $system;
 		echo '
 			<!DOCTYPE html>
 			<html>
 				<head>
-					<title>'.$system_title.'</title>
-					'; include($system_location_php . '/lib/htmlheaders.php'); echo '
+					<title>'.$system['title'].'</title>
+					'; include($system['location_php'] . '/lib/htmlheaders.php'); echo '
 					<meta name="viewport" content="width=device-width, initial-scale=1">
 					<meta http-equiv="refresh" content="0">
 				</head>
@@ -24,7 +21,7 @@
 	};
 
 	//header
-	include($system_location_php . '/lib/login/login-config.php');
+	include($system['location_php'] . '/lib/login/login-config.php');
 	session_name('SESSID');
 	session_start();
 	if(!isset($_SESSION['logged']))
@@ -114,7 +111,7 @@
 
 	if(!$_SESSION['logged']) // login form
 	{
-		include($system_location_php . '/lib/login/login-form.php');
+		include($system['location_php'] . '/lib/login/login-form.php');
 		exit();
 	}
 

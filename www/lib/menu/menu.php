@@ -1,8 +1,8 @@
-<?php include($system_location_php . '/lib/prevent-direct.php'); prevent_direct('menu.php'); ?>
+<?php include($system['location_php'] . '/lib/prevent-direct.php'); prevent_direct('menu.php'); ?>
 <?php if(isset($_SESSION['logged'])) { if($_SESSION['logged']) { /* dont display menu if not logged (1) */ ?> 
-<link rel="stylesheet" type="text/css" href="<?php echo $system_location_html; ?>/lib/menu/menu.css">
+<link rel="stylesheet" type="text/css" href="<?php echo $system['location_html']; ?>/lib/menu/menu.css">
 
-<div id="menu">
+<div id="system_menu">
 	<?php /* fancy characters:
 		&#9484; - flipped 'L'
 		&#9500; - '|-'
@@ -10,7 +10,7 @@
 		&#9492; - 'L'
 		&#127968; - Home
 	*/ ?>
-	<a href="<?php echo $system_location_html; ?>/" style="font-size: 20pt;">&#127968;</a><br><!-- home -->
+	<a href="<?php echo $system['location_html']; ?>/" style="font-size: 20pt;">&#127968;</a><br><!-- home -->
 
 	<?php
 		// Menu render part
@@ -35,14 +35,14 @@
 					if category is ok, include menu part
 		*/
 
-		$plugins=scandir($system_location_php);
+		$plugins=scandir($system['location_php']);
 
 		// Get categories list
 		$categories=array(); # declare to avoid annoying warnings
 		$categories_ind=0;
 		foreach($plugins as $plugin)
 			if(($plugin != '.') && ($plugin != '..') && (is_dir('./' . $plugin)))
-				if((file_exists($system_location_php . '/' . $plugin . '/description.php')) && !file_exists($system_location_php . '/' . $plugin . '/disabled'))
+				if((file_exists($system['location_php'] . '/' . $plugin . '/description.php')) && !file_exists($system['location_php'] . '/' . $plugin . '/disabled'))
 				{
 					include './' . $plugin . '/description.php';
 					if(!in_array($category, $categories))
@@ -57,13 +57,13 @@
 			foreach($plugins as $plugin)
 				if(($plugin != '.') && ($plugin != '..') && (is_dir('./' . $plugin))) // directory filter
 				{
-					if((file_exists($system_location_php . '/' . $plugin . '/description.php')) && (!file_exists($system_location_php . '/' . $plugin . '/menu-addon.php')) && (!file_exists($system_location_php . '/' . $plugin . '/disabled'))) // check if dir is plugin
+					if((file_exists($system['location_php'] . '/' . $plugin . '/description.php')) && (!file_exists($system['location_php'] . '/' . $plugin . '/menu-addon.php')) && (!file_exists($system['location_php'] . '/' . $plugin . '/disabled'))) // check if dir is plugin
 					{
 						include './' . $plugin . '/description.php';
 						if($category === $categories[$i]) // check if category is correct
 							$plugin_last=$plugin; // save new result
 					}
-					if(file_exists($system_location_php . '/' . $plugin . '/description.php') && (file_exists($system_location_php . '/' . $plugin . '/menu-addon.php')) && (!file_exists($system_location_php . '/' . $plugin . '/disabled'))) // if it's menu addon
+					if(file_exists($system['location_php'] . '/' . $plugin . '/description.php') && (file_exists($system['location_php'] . '/' . $plugin . '/menu-addon.php')) && (!file_exists($system['location_php'] . '/' . $plugin . '/disabled'))) // if it's menu addon
 					{
 						include './' . $plugin . '/description.php';
 						if($category === $categories[$i])
@@ -84,16 +84,16 @@
 			foreach($plugins as $plugin)
 				if(($plugin != '.') && ($plugin != '..') && (is_dir('./' . $plugin))) // directory filter
 				{
-					if((file_exists($system_location_php . '/' . $plugin . '/description.php')) && (!file_exists($system_location_php . '/' . $plugin . '/menu-addon.php')) && (!file_exists($system_location_php . '/' . $plugin . '/disabled'))) // check if dir is plugin
+					if((file_exists($system['location_php'] . '/' . $plugin . '/description.php')) && (!file_exists($system['location_php'] . '/' . $plugin . '/menu-addon.php')) && (!file_exists($system['location_php'] . '/' . $plugin . '/disabled'))) // check if dir is plugin
 					{
 						include './' . $plugin . '/description.php';
 						if($category === $categories[$i]) // check if category is correct
 							if($plugin === $plugin_last)
-								echo '&#9492;&#9472;<a href="' . $system_location_html . '/' . $plugin . '">' . $name . '</a><br>' . "\n";
+								echo '&#9492;&#9472;<a href="' . $system['location_html'] . '/' . $plugin . '">' . $name . '</a><br>' . "\n";
 							else
-								echo '&#9500;&#9472;<a href="' . $system_location_html . '/' . $plugin . '">' . $name . '</a><br>' . "\n";
+								echo '&#9500;&#9472;<a href="' . $system['location_html'] . '/' . $plugin . '">' . $name . '</a><br>' . "\n";
 					}
-					if(file_exists($system_location_php . '/' . $plugin . '/description.php') && (file_exists($system_location_php . '/' . $plugin . '/menu-addon.php')) && (!file_exists($system_location_php . '/' . $plugin . '/disabled'))) // if it's menu addon
+					if(file_exists($system['location_php'] . '/' . $plugin . '/description.php') && (file_exists($system['location_php'] . '/' . $plugin . '/menu-addon.php')) && (!file_exists($system['location_php'] . '/' . $plugin . '/disabled'))) // if it's menu addon
 					{
 						include './' . $plugin . '/description.php';
 						if($category === $categories[$i])
@@ -106,6 +106,6 @@
 		unset($categories); unset($categories_ind); unset($category); unset($i); unset($plugins); unset($plugin); unset($plugin_last); unset($name);
 	?>
 
-	<form action='.' method="post"><button type="submit" name="logout" value="logout">Logout</button></form>
+	<form action='.' method="post"><button type="submit" name="logout" value="logout" class="system_button">Logout</button></form>
 </div>
 <?php }} /* dont display menu if not logged (2) */ ?>

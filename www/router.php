@@ -1,8 +1,9 @@
 <?php
 	// Scripts settings
-	$system_location_html=''; // none if in root directory, for browser
-	$system_location_php=$_SERVER['DOCUMENT_ROOT'] . ''; // for php scripts
-	$system_title='Router';
+	$system['location_html']=''; // none if in root directory, for browser
+	$system['location_php']=$_SERVER['DOCUMENT_ROOT'] . ''; // for php scripts
+	$system['title']='Server';
+	$system['theme']='default';
 
 	/* This script:
 		- deny access to all scripts if 'DISABLED.MAIN' exists
@@ -15,12 +16,12 @@
 	*/
 
 	// disable switch
-	if((file_exists($system_location_php . '/DISABLED.MAIN')) && ($_SERVER['REMOTE_ADDR'] != '127.0.0.1'))
+	if((file_exists($system['location_php'] . '/DISABLED.MAIN')) && ($_SERVER['REMOTE_ADDR'] != '127.0.0.1'))
 	{
 		echo '<!DOCTYPE html>
 			<html>
 				<head>
-					<title>'.$system_title.'</title>
+					<title>'.$system['title'].'</title>
 					<meta charset="utf-8">
 					<meta name="viewport" content="width=device-width, initial-scale=1">
 					<style>
@@ -49,15 +50,19 @@
 		exit();
 	}
 
+	// now cache some commands to quick exec
+	$router_cache['strtok']=strtok($_SERVER['REQUEST_URI'], '?');
+	$router_cache['substr']=substr($router_cache['strtok'], strrpos($router_cache['strtok'], '/') + 1);
+
 	// hide this script - fake 404
-	if(strtok($_SERVER['REQUEST_URI'], '?') === $system_location_html . '/router.php')
+	if($router_cache['strtok'] === $system['location_html'] . '/router.php')
 	{
 		http_response_code(404);
 		echo '<!DOCTYPE html>
 			<html>
 				<head>
-					<title>'.$system_title.'</title>
-					'; include($system_location_php . '/lib/htmlheaders.php'); echo '
+					<title>'.$system['title'].'</title>
+					'; include($system['location_php'] . '/lib/htmlheaders.php'); echo '
 					<meta http-equiv="refresh" content="0; url=.">
 				</head>
 			</html>
@@ -66,10 +71,10 @@
 	}
 
 	// 404 handle- for files
-	if(!file_exists(strtok($_SERVER['DOCUMENT_ROOT'].$_SERVER['REQUEST_URI'], '?')))
+	if(!file_exists($_SERVER['DOCUMENT_ROOT'] . $router_cache['strtok']))
 	{
 		http_response_code(404);
-		if(substr(strtok($_SERVER['REQUEST_URI'], '?'), -1) === '/')
+		if(substr($router_cache['strtok'], -1) === '/')
 			$url='..';
 		else
 			$url='.';
@@ -77,8 +82,8 @@
 		echo '<!DOCTYPE html>
 			<html>
 				<head>
-					<title>'.$system_title.'</title>
-					'; include($system_location_php . '/lib/htmlheaders.php'); echo '
+					<title>'.$system['title'].'</title>
+					'; include($system['location_php'] . '/lib/htmlheaders.php'); echo '
 					<meta http-equiv="refresh" content="0; url=' . $url . '">
 				</head>
 			</html>
@@ -87,13 +92,13 @@
 	}
 
 	// 404 handle - for dirs
-	if(is_dir(strtok($_SERVER['DOCUMENT_ROOT'].$_SERVER['REQUEST_URI'], '?')))
-		if((file_exists(strtok($_SERVER['DOCUMENT_ROOT'].$_SERVER['REQUEST_URI'], '?') . '/index.php')) || (file_exists(strtok($_SERVER['DOCUMENT_ROOT'].$_SERVER['REQUEST_URI'], '?') . '/index.html')))
+	if(is_dir($_SERVER['DOCUMENT_ROOT'] . $router_cache['strtok']))
+		if((file_exists($_SERVER['DOCUMENT_ROOT'] . $router_cache['strtok'] . '/index.php')) || (file_exists($_SERVER['DOCUMENT_ROOT'] . $router_cache['strtok'] . '/index.html')))
 		{ /* everything is ok */ }
 		else
 		{
 			http_response_code(404);
-			if(substr(strtok($_SERVER['REQUEST_URI'], '?'), -1) === '/')
+			if(substr($router_cache['strtok'], -1) === '/')
 				$url='..';
 			else
 				$url='.';
@@ -101,8 +106,8 @@
 			echo '<!DOCTYPE html>
 				<html>
 					<head>
-						<title>'.$system_title.'</title>
-						'; include($system_location_php . '/lib/htmlheaders.php'); echo '
+						<title>'.$system['title'].'</title>
+						'; include($system['location_php'] . '/lib/htmlheaders.php'); echo '
 						<meta http-equiv="refresh" content="0; url=' . $url . '">
 					</head>
 				</html>
@@ -111,13 +116,13 @@
 		}
 
 	// denied file types
-	if(preg_match('/\.(?:sh|rc|txt)$/', $_SERVER['REQUEST_URI'])) // if type ****.xxx in url
+	if(preg_match('/\.(?:sh|rc|txt)$/', $router_cache['strtok'])) // if type ****.xxx in url
 	{
 		http_response_code(404);
 		echo '<html>
 			<head>
-				<title>'.$system_title.'</title>
-				'; include($system_location_php . '/lib/htmlheaders.php'); echo '
+				<title>'.$system['title'].'</title>
+				'; include($system['location_php'] . '/lib/htmlheaders.php'); echo '
 				<meta http-equiv="refresh" content="0; url=.">
 			</head>
 		</html>';
@@ -125,13 +130,13 @@
 	}
 
 	// url with index.php destroys application - prevent this
-	if(strtok(substr($_SERVER['REQUEST_URI'], strrpos($_SERVER['REQUEST_URI'], '/') + 1), '?') === 'index.php')
+	if($router_cache['substr'] === 'index.php')
 	{
 		http_response_code(404);
 		echo '<html>
 			<head>
-				<title>'.$system_title.'</title>
-				'; include($system_location_php . '/lib/htmlheaders.php'); echo '
+				<title>'.$system['title'].'</title>
+				'; include($system['location_php'] . '/lib/htmlheaders.php'); echo '
 				<meta http-equiv="refresh" content="0; url=.">
 			</head>
 		</html>';
@@ -139,13 +144,13 @@
 	}
 
 	// fake 404 if path point to file 'disabled', 'description.php' and 'menu-addon.php'
-	if((strtok(substr($_SERVER['REQUEST_URI'], strrpos($_SERVER['REQUEST_URI'], '/') + 1), '?') === 'disabled') || (strtok(substr($_SERVER['REQUEST_URI'], strrpos($_SERVER['REQUEST_URI'], '/') + 1), '?') === 'description.php') || (strtok(substr($_SERVER['REQUEST_URI'], strrpos($_SERVER['REQUEST_URI'], '/') + 1), '?') === 'menu-addon.php'))
+	if(($router_cache['substr'] === 'disabled') || ($router_cache['substr'] === 'description.php') || ($router_cache['substr'] === 'menu-addon.php'))
 	{
 		http_response_code(404);
 		echo '<html>
 			<head>
-				<title>'.$system_title.'</title>
-				'; include($system_location_php . '/lib/htmlheaders.php'); echo '
+				<title>'.$system['title'].'</title>
+				'; include($system['location_php'] . '/lib/htmlheaders.php'); echo '
 				<meta http-equiv="refresh" content="0; url=..">
 			</head>
 		</html>';
@@ -153,18 +158,21 @@
 	}
 
 	// deny access to disabled modules
-	if(file_exists($system_location_php . strtok($_SERVER['REQUEST_URI'], '?') . '/disabled'))
+	if(file_exists($system['location_php'] . $router_cache['strtok'] . '/disabled'))
 	{
 		http_response_code(404);
 		echo '<html>
 			<head>
-				<title>'.$system_title.'</title>
-				'; include($system_location_php . '/lib/htmlheaders.php'); echo '
+				<title>'.$system['title'].'</title>
+				'; include($system['location_php'] . '/lib/htmlheaders.php'); echo '
 				<meta http-equiv="refresh" content="0; url=..">
 			</head>
 		</html>';
 		exit();
 	}
+
+	// drop router cache
+	unset($router_cache);
 
 	// abort script - load destination file
 	return false;

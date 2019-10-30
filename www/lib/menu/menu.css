@@ -1,11 +1,10 @@
-#menu {
-	/* border: 1px solid #000000; */
+#system_menu {
 	float: left;
 	width: 200px;
 	height: 90%;
 	margin-bottom: 5px;
 }
-#menu a, #menu a:hover, #menu a:visited {
+/* #system_menu a, #system_menu a:hover, #system_menu a:visited { /* uncomment to force link styles */
 	text-decoration: none;
-	color: #0000FF;
-}
+	color: #0000ff;
+} */

@@ -1,29 +1,31 @@
-<?php include($system_location_php . '/lib/prevent-direct.php'); prevent_direct('login-form.php'); ?>
+<?php include($system['location_php'] . '/lib/prevent-direct.php'); prevent_direct('login-form.php'); ?>
 <!DOCTYPE html>
 <html>
 	<head>
-		<title><?php echo $system_title; ?> Login</title>
-		<?php include($system_location_php . '/lib/htmlheaders.php'); ?>
+		<title><?php echo $system['title']; ?> Login</title>
+		<?php include($system['location_php'] . '/lib/htmlheaders.php'); ?>
 	</head>
 	<body>
-		<div>
-			<h1><?php echo $system_title; ?> Login</h1>
+		<div id="login_body">
+			<h1><?php echo $system['title']; ?> Login</h1>
 			<form action="." method="post">
 				Username: <input type="text" name="user"><span id="hostname">@<?php echo $_SERVER['HTTP_HOST']; ?></span><br>
 				Password: <input type="password" name="password"><br>
-				<input type="submit" value="Login">
+				<input type="submit" value="Login" class="system_button">
 			</form>
 			<br>
-			<?php
-				// Widgets render part
-				$plugins=scandir($system_location_php . '/login-plugins');
+			<div id="system_login_content">
+				<?php
+					// Widgets render part
+					$plugins=scandir($system['location_php'] . '/login-plugins');
 
-				foreach($plugins as $plugin)
-					if(($plugin != '.') && ($plugin != '..') && (is_dir($system_location_php . '/login-plugins/' . $plugin))) // directory filter
-						if(!file_exists($system_location_php . '/login-plugins/' . $plugin . '/disabled')) // check if widget is not disabled
-							include($system_location_php . '/login-plugins/' . $plugin . '/' . str_replace('_', '', strstr($plugin, '_')) . '.php');
-				unset($plugins); unset($plugin) // clear environment
-			?>
+					foreach($plugins as $plugin)
+						if(($plugin != '.') && ($plugin != '..') && (is_dir($system['location_php'] . '/login-plugins/' . $plugin))) // directory filter
+							if(!file_exists($system['location_php'] . '/login-plugins/' . $plugin . '/disabled')) // check if widget is not disabled
+								include($system['location_php'] . '/login-plugins/' . $plugin . '/' . str_replace('_', '', strstr($plugin, '_')) . '.php');
+					unset($plugins); unset($plugin) // clear environment
+				?>
+			</div>
 		</div>
 	</body>
 </html>

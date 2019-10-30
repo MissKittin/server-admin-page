@@ -1,53 +1,58 @@
 #!/bin/sh
 echo 'home-plugins'
 cd home-plugins
-rm index.php
+[ -e index.php ] && rm index.php
 ln -s ../lib/prevent-index.php index.php
 
 echo '99_sample-widget'
 cd 99_sample-widget
-rm index.php
+[ -e index.php ] && rm index.php
 ln -s ../../lib/prevent-index.php index.php
 echo -n '' > disabled
 
 echo 'lib'
 cd ../../lib
-rm index.php
+[ -e index.php ] && rm index.php
 ln -s prevent-index.php index.php
 
 echo 'favicon'
 cd favicon
-rm index.php
+[ -e index.php ] && rm index.php
 ln -s ../prevent-index.php index.php
 
 echo 'login'
 cd ../login
-rm index.php
+[ -e index.php ] && rm index.php
 ln -s ../prevent-index.php index.php
 
 echo 'menu'
 cd ../menu
-rm index.php
+[ -e index.php ] && rm index.php
 ln -s ../prevent-index.php index.php
 
 echo 'htmlheaders'
 cd ../htmlheaders
-rm index.php
+[ -e index.php ] && rm index.php
+ln -s ../prevent-index.php index.php
+
+echo 'themes'
+cd ../themes
+[ -e index.php ] && rm index.php
 ln -s ../prevent-index.php index.php
 
 echo 'login-plugins'
 cd ../../login-plugins
-rm index.php
+[ -e index.php ] && rm index.php
 ln -s ../lib/prevent-index.php index.php
 
 echo '10_check-cookies'
 cd 10_check-cookies
-rm index.php
+[ -e index.php ] && rm index.php
 ln -s ../../lib/prevent-index.php index.php
 
 echo '99_sample-widget'
 cd ../99_sample-widget
-rm index.php
+[ -e index.php ] && rm index.php
 ln -s ../../lib/prevent-index.php index.php
 echo -n '' > disabled
 

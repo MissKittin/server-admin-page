@@ -4,6 +4,7 @@
 /* variables */
 :root {
 	--content_border-color: #000000; /* border color */
+	--content_background-color: #cccccc; /* default background color */
 }
 
 /* menu */
@@ -17,7 +18,7 @@ html, body {
 	/* height: 100%; */
 }
 body {
-	background-color: #cccccc;
+	background-color: var(--content_background-color);
 }
 #system_body {}
 #system_body #system_content {

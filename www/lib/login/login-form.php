@@ -9,7 +9,7 @@
 		<div id="login_body">
 			<h1><?php echo $system['title']; ?> Login</h1>
 			<form action="." method="post">
-				Username: <input type="text" name="user"><span id="hostname">@<?php echo $_SERVER['HTTP_HOST']; ?></span><br>
+				Username: <input type="text" name="user"><span id="login_hostname">@<?php echo $_SERVER['HTTP_HOST']; ?></span><br>
 				Password: <input type="password" name="password"><br>
 				<input type="submit" value="Login" class="system_button">
 			</form>

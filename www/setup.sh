@@ -30,10 +30,10 @@ cd ../menu
 [ -e index.php ] && rm index.php
 ln -s ../prevent-index.php index.php
 
-echo 'htmlheaders'
-cd ../htmlheaders
-[ -e index.php ] && rm index.php
-ln -s ../prevent-index.php index.php
+#echo 'htmlheaders'
+#cd ../htmlheaders
+#[ -e index.php ] && rm index.php
+#ln -s ../prevent-index.php index.php
 
 echo 'themes'
 cd ../themes

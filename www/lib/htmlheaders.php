@@ -1,4 +1,3 @@
-<?php include($system['location_php'] . '/lib/prevent-direct.php'); prevent_direct('htmlheaders.php'); ?>
 <?php
 	// include defined html headers
 

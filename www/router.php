@@ -13,6 +13,7 @@
 		- preventing access to module if index.php is in URI
 		- deny access to files: 'disabled', 'description.php' and 'menu-addon.php'
 		- deny access to disabled modules
+		- deny access to lib/htmlheaders.php and lib/htmlheaders/*
 	*/
 
 	// disable switch
@@ -170,6 +171,35 @@
 		</html>';
 		exit();
 	}
+
+	// deny access to lib/htmlheaders.php
+	if($router_cache['substr'] === 'htmlheaders.php')
+	{
+		http_response_code(404);
+		echo '<html>
+			<head>
+				<title>'.$system['title'].'</title>
+				'; include($system['location_php'] . '/lib/htmlheaders.php'); echo '
+				<meta http-equiv="refresh" content="0; url=..">
+			</head>
+		</html>';
+		exit();
+	}
+
+	// deny access to lib/htmlheaders/*
+	if(explode('/', substr($router_cache['strtok'], strlen($system['location_html'])))[2] === 'htmlheaders')
+	{
+		http_response_code(404);
+		echo '<html>
+			<head>
+				<title>'.$system['title'].'</title>
+				'; include($system['location_php'] . '/lib/htmlheaders.php'); echo '
+				<meta http-equiv="refresh" content="0; url=..">
+			</head>
+		</html>';
+		exit();
+	}
+
 
 	// drop router cache
 	unset($router_cache);

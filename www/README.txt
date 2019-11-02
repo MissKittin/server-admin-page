@@ -18,7 +18,7 @@ Menu bar (with own or shared theme): lib/menu
 favicon: lib/favicon
 Direct exec prevention: lib/prevent-direct.php
 Directory enter prevention: lib/prevent-index.php (dependent on prevent-direct.php)
-Theme: lib/header.php -> lib/themes
+Theme: lib/htmlheaders.php -> lib/htmlheaders/theme.php -> lib/themes/$system['theme'].css
 Plugins on login page: login-plugins
 Plugins on home page: home-plugins
 HTML headers: lib/htmlheaders.php, lib/htmlheaders

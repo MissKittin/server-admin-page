@@ -3,6 +3,7 @@ server-admin-page v3.1
  - css ids and classes
  - themes support
  - router.php command cache
+ - menu is module
 
 Config: first lines in router.php
 Users and passwords: lib/login/login-config.php
@@ -14,7 +15,7 @@ router.php	->index.php	->lib/home.php	->lib/prevent-direct.php	-> include lib/ht
 
 Modules:
 Login protection: lib/login
-Menu bar (with own or shared theme): lib/menu
+Menu bar (with own or shared theme): lib/menu/menu.php -> lib/menu/$system['menu']/menu.php
 favicon: lib/favicon
 Direct exec prevention: lib/prevent-direct.php
 Directory enter prevention: lib/prevent-index.php (dependent on prevent-direct.php)

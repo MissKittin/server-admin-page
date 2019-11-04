@@ -2,10 +2,12 @@
 	// Scripts settings
 	$system['location_html']=''; // none if in root directory, for browser
 	$system['location_php']=$_SERVER['DOCUMENT_ROOT'] . ''; // for php scripts
-	$system['title']='Server';
-	$system['theme']='default';
+	$system['title']='Server'; // <title>
+	$system['theme']='default'; // see lib/htmlheaders/theme.php
+	$system['menu']='default'; // see lib/menu/menu.php
 
 	/* This script:
+		- exports system settings
 		- deny access to all scripts if 'DISABLED.MAIN' exists
 		- hides itself
 		- handles 404 file not found error

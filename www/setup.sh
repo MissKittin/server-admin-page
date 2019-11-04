@@ -30,6 +30,12 @@ cd ../menu
 [ -e index.php ] && rm index.php
 ln -s ../prevent-index.php index.php
 
+echo 'menu/default'
+cd default
+[ -e index.php ] && rm index.php
+ln -s ../../prevent-index.php index.php
+cd ..
+
 #echo 'htmlheaders'
 #cd ../htmlheaders
 #[ -e index.php ] && rm index.php

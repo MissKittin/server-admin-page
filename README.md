@@ -2,7 +2,8 @@
 control your server/router from web page<br>
 this is 3rd version of this application<br>
 version 3.1 - see www/README.txt for more info<br>
-modules: https://github.com/MissKittin/server-admin-page-modules<br><br>
+modules: https://github.com/MissKittin/server-admin-page-modules<br>
+whole project: https://github.com/MissKittin/debian-router<br><br>
 
 with my modules it looks like this:<br>
 ![default](https://raw.githubusercontent.com/MissKittin/server-admin-page/master/preview.png)<br><br>

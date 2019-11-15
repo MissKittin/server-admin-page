@@ -16,3 +16,9 @@ dark theme:<br>
 
 setup links - run setup.sh<br>
 panic button - create 'DISABLED.MAIN' file in the root dir
+<br><br>
+
+# webadmin
+make new directory `www` in `debian-router/usr/local/share/router/webadmin`, put content from `server-admin-page/www` to `debian-router/usr/local/share/router/webadmin/www` and run `debian-router/usr/local/share/router/webadmin/www/setup.sh`<br>
+clone modules, and merge content in `debian-router/usr/local/share/router/webadmin/www`, setup<br>
+you can now setup debian-router

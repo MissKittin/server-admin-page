@@ -111,7 +111,7 @@
 
 	if(!$_SESSION['logged']) // login form
 	{
-		include($system['location_php'] . '/lib/login/login-form.php');
+		include($system['location_php'] . '/lib/login-themes/' . $system['login_theme'] . '.php');
 		exit();
 	}
 

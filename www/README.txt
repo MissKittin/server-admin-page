@@ -2,6 +2,7 @@ server-admin-page v3.1
  - $system_something -> $system['something']
  - css ids and classes
  - themes support
+ - custom login forms support
  - router.php command cache
  - menu is module
 
@@ -10,7 +11,7 @@ Users and passwords: lib/login/login-config.php
 
 Executing trip:
 router.php	->index.php	->lib/home.php	->lib/prevent-direct.php	-> include lib/htmlheaders.php, lib/menu/menu.php, home-plugins/* (all enabled)	->exit()
-						->lib/login/login.php	->if not logged: lib/login/login-form.php	->include lib/htmlheaders.php, login-plugins/* (all enabled)	->exit()
+						->lib/login/login.php	->if not logged: lib/login-themes/$system['login_theme'].php	->include lib/htmlheaders.php, login-plugins/* (all enabled)	->exit()
 							->include lib/login/login-config.php
 
 Modules:
@@ -20,6 +21,7 @@ favicon: lib/favicon
 Direct exec prevention: lib/prevent-direct.php
 Directory enter prevention: lib/prevent-index.php (dependent on prevent-direct.php)
 Theme: lib/htmlheaders.php -> lib/htmlheaders/theme.php -> lib/themes/$system['theme'].css
+Login form: lib/login.php -> lib/login-themes/$system['login_theme'].php
 Plugins on login page: login-plugins
 Plugins on home page: home-plugins
 HTML headers: lib/htmlheaders.php, lib/htmlheaders

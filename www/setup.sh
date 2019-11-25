@@ -25,6 +25,11 @@ cd ../login
 [ -e index.php ] && rm index.php
 ln -s ../prevent-index.php index.php
 
+echo 'login-themes'
+cd ../login-themes
+[ -e index.php ] && rm index.php
+ln -s ../prevent-index.php index.php
+
 echo 'menu'
 cd ../menu
 [ -e index.php ] && rm index.php

@@ -4,6 +4,7 @@
 	$system['location_php']=$_SERVER['DOCUMENT_ROOT'] . ''; // for php scripts
 	$system['title']='Server'; // <title>
 	$system['theme']='default'; // see lib/htmlheaders/theme.php
+	$system['login_theme']='default'; // form, see lib/login-themes
 	$system['menu']='default'; // see lib/menu/menu.php
 
 	/* This script:

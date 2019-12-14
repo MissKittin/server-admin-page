@@ -58,6 +58,15 @@
 	$router_cache['strtok']=strtok($_SERVER['REQUEST_URI'], '?');
 	$router_cache['substr']=substr($router_cache['strtok'], strrpos($router_cache['strtok'], '/') + 1);
 
+	// new explode function
+	$router_cache['explode']=function($a, $b, $offset)
+	{
+		$array=explode($a, $b);
+		if(isset($array[$offset]))
+			return $array[$offset];
+		return false;
+	};
+
 	// hide this script - fake 404
 	if($router_cache['strtok'] === $system['location_html'] . '/router.php')
 	{
@@ -190,7 +199,7 @@
 	}
 
 	// deny access to lib/htmlheaders/*
-	if(explode('/', substr($router_cache['strtok'], strlen($system['location_html'])))[2] === 'htmlheaders')
+	if($router_cache['explode']('/', substr($router_cache['strtok'], strlen($system['location_html'])), 2) === 'htmlheaders')
 	{
 		http_response_code(404);
 		echo '<html>

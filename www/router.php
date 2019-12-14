@@ -212,7 +212,6 @@
 		exit();
 	}
 
-
 	// drop router cache
 	unset($router_cache);
 

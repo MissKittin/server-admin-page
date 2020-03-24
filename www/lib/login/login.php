@@ -1,5 +1,8 @@
-<?php include($system['location_php'] . '/lib/prevent-direct.php'); prevent_direct('login.php'); ?>
+<?php if(!function_exists('prevent_direct')) include($system['location_php'] . '/lib/prevent-direct.php'); prevent_direct('login.php'); ?>
 <?php
+	//import sec_csrf library
+	include($system['location_php'] . '/lib/sec_csrf.php');
+
 	//functions
 	$reload=function()
 	{
@@ -24,6 +27,7 @@
 	include($system['location_php'] . '/lib/login/login-config.php');
 	session_name('SESSID');
 	session_start();
+	$csrf_generateToken(); unset($csrf_generateToken); // sec_csrf.php
 	if(!isset($_SESSION['logged']))
 		$_SESSION['logged']=false;
 
@@ -58,7 +62,7 @@
 	switch($login_method)
 	{
 		case 'multi':
-			if(isset($_POST['user']) && isset($_POST['password']))
+			if(isset($_POST['user']) && isset($_POST['password']) && csrf_checkToken('post'))
 				for($i=0, $cnt=count($USER); $i<$cnt; $i++)
 					if($_POST['user'] === $USER[$i]) // find user
 						if($_POST['password'] === $PASSWORD[$i]) // check passwd
@@ -72,9 +76,24 @@
 							exit();
 						}
 		break;
+		case 'multi_bcrypt':
+			if(isset($_POST['user']) && isset($_POST['password']) && csrf_checkToken('post'))
+				for($i=0, $cnt=count($USER); $i<$cnt; $i++)
+					if($_POST['user'] === $USER[$i]) // find user
+						if(password_verify($_POST['password'], $PASSWORD[$i])) // check passwd, bcrypt mod here
+						{
+							error_log('i Successfully logged from ' . $_SERVER['REMOTE_ADDR'] . ' by multi_bcrypt method', 0);
+							$_SESSION['logged_user']=$USER[$i];
+							$_SESSION['logged']=true; // success!!!
+							$_SESSION['logged_ip']=$_SERVER['REMOTE_ADDR']; // log for cookie attack detection
+							$_SESSION['user_agent']=$_SERVER['HTTP_USER_AGENT']; // log for cookie attack detection
+							$reload();
+							exit();
+						}
+		break;
 		case 'pam':
 			// unix auth
-			if(isset($_POST['user']) && isset($_POST['password']))
+			if(isset($_POST['user']) && isset($_POST['password']) && csrf_checkToken('post'))
 			{
 				$login_userName=$_POST['user'];
 				$login_userPasswd=$_POST['password'];

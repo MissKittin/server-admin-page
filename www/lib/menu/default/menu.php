@@ -1,7 +1,11 @@
-<?php include($system['location_php'] . '/lib/prevent-direct.php'); prevent_direct('menu.php'); ?>
+<?php
+	// default menu module for server admin page
+	// chdir($system['location_php']) required
+?>
+<?php if(!function_exists('prevent_direct')) include($system['location_php'] . '/lib/prevent-direct.php'); prevent_direct('menu.php'); ?>
 <?php if(isset($_SESSION['logged'])) { if($_SESSION['logged']) { /* dont display menu if not logged (1) */ ?> 
-<link rel="stylesheet" type="text/css" href="<?php echo $system['location_html']; ?>/lib/menu/menu.css">
 
+<link rel="stylesheet" type="text/css" href="<?php echo $system['location_html']; ?>/lib/menu/default/theme">
 <div id="system_menu">
 	<?php /* fancy characters:
 		&#9484; - flipped 'L'

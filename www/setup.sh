@@ -1,4 +1,7 @@
 #!/bin/sh
+echo 'home'
+ln -s ./lib/home.php ./index.php
+
 echo 'home-plugins'
 cd home-plugins
 [ -e index.php ] && rm index.php
@@ -17,6 +20,11 @@ ln -s prevent-index.php index.php
 
 echo 'favicon'
 cd favicon
+[ -e index.php ] && rm index.php
+ln -s ../prevent-index.php index.php
+
+echo 'console'
+cd ../console
 [ -e index.php ] && rm index.php
 ln -s ../prevent-index.php index.php
 
@@ -69,7 +77,7 @@ echo -n '' > disabled
 
 echo 'login-database'
 cd ../../lib/login
-chmod 600 login-config.php
+chmod 640 login-config.php
 
 echo 'sample-menu-addon'
 cd ../../sample-menu-addon

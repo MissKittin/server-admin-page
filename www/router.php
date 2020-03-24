@@ -1,23 +1,34 @@
 <?php
+	// Server admin page - Router modular web admin
+	// 3.0 11-13.08.2019
+	// 3.1 27-29.09.2019
+	// 3.1u1 03-??.03.2020
+	// this script must be executed first
+
 	// Scripts settings
 	$system['location_html']=''; // none if in root directory, for browser
 	$system['location_php']=$_SERVER['DOCUMENT_ROOT'] . ''; // for php scripts
-	$system['title']='Server'; // <title>
-	$system['theme']='default'; // see lib/htmlheaders/theme.php
+	$system['title']='Router'; // <title>
+	$system['theme']='dark'; // see lib/htmlheaders/theme.php
 	$system['login_theme']='default'; // form, see lib/login-themes
 	$system['menu']='default'; // see lib/menu/menu.php
+	$system['location_htmlheaders']=$system['location_php'] . '/lib/htmlheaders';
 
 	/* This script:
 		- exports system settings
+		- prevents cross-frame scripting
 		- deny access to all scripts if 'DISABLED.MAIN' exists
 		- hides itself
 		- handles 404 file not found error
-		- deny access to *.sh, *.rc and *.txt files
+		- deny access to *.sh, *.rc and *.TXT files
 		- preventing access to module if index.php is in URI
 		- deny access to files: 'disabled', 'description.php' and 'menu-addon.php'
 		- deny access to disabled modules
-		- deny access to lib/htmlheaders.php and lib/htmlheaders/*
+		- deny access to lib/htmlheaders.php, cache_htmlheaders.php, lib/htmlheaders/* and lib/htmlheaders_min/*
 	*/
+
+	// prevent cross-frame scripting
+	header('X-Frame-Options: DENY');
 
 	// disable switch
 	if((file_exists($system['location_php'] . '/DISABLED.MAIN')) && ($_SERVER['REMOTE_ADDR'] != '127.0.0.1'))
@@ -129,7 +140,7 @@
 		}
 
 	// denied file types
-	if(preg_match('/\.(?:sh|rc|txt)$/', $router_cache['strtok'])) // if type ****.xxx in url
+	if(preg_match('/\.(?:sh|rc|TXT)$/', $router_cache['strtok'])) // if type ****.xxx in url
 	{
 		http_response_code(404);
 		echo '<html>
@@ -184,8 +195,8 @@
 		exit();
 	}
 
-	// deny access to lib/htmlheaders.php
-	if($router_cache['substr'] === 'htmlheaders.php')
+	// deny access to lib/htmlheaders.php and cache_htmlheaders.php
+	if(($router_cache['substr'] === 'htmlheaders.php') || ($router_cache['substr'] === 'cache_htmlheaders.php'))
 	{
 		http_response_code(404);
 		echo '<html>
@@ -198,8 +209,8 @@
 		exit();
 	}
 
-	// deny access to lib/htmlheaders/*
-	if($router_cache['explode']('/', substr($router_cache['strtok'], strlen($system['location_html'])), 2) === 'htmlheaders')
+	// deny access to lib/htmlheaders/* and lib/htmlheaders_min/*
+	if(($router_cache['explode']('/', substr($router_cache['strtok'], strlen($system['location_html'])), 2) === 'htmlheaders') || ($router_cache['explode']('/', substr($router_cache['strtok'], strlen($system['location_html'])), 2) === 'htmlheaders_min'))
 	{
 		http_response_code(404);
 		echo '<html>

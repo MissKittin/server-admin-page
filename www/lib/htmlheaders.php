@@ -1,10 +1,14 @@
 <?php
-	// include defined html headers
+	// include defined html headers or read cached content
 
-	$htmlheaders_location='/lib/htmlheaders'; // path
-	$htmlheaders=scandir($system['location_php'] . $htmlheaders_location);
-	foreach($htmlheaders as $htmlheader)
-		if(($htmlheader != '.') && ($htmlheader != '..') && ($htmlheader != 'index.php')) // exclude unwanted files
-			include $system['location_php'] . '/lib/htmlheaders/' . $htmlheader;
-	unset($htmlheaders_location); unset($htmlheaders); unset($htmlheader); // clear environment
+	if(!@include($system['location_php'] . '/cache_htmlheaders.php'))
+	{
+		$minified_htmlheaders=$system['location_htmlheaders'] . '_min';
+		$htmlheaders=scandir($system['location_htmlheaders']);
+		foreach($htmlheaders as $htmlheader)
+			if(($htmlheader != '.') && ($htmlheader != '..') && ($htmlheader != 'index.php')) // exclude unwanted files
+				if(!@include($minified_htmlheaders . '/' . $htmlheader)) // try import minified version
+					include($system['location_htmlheaders'] . '/' . $htmlheader); // failed, import full version
+		unset($system['location_htmlheaders']); unset($minified_htmlheaders); unset($htmlheaders); unset($htmlheader); // clear environment
+	}
 ?>

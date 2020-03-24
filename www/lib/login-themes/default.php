@@ -1,4 +1,4 @@
-<?php include($system['location_php'] . '/lib/prevent-direct.php'); prevent_direct('default.php'); ?>
+<?php if(!function_exists('prevent_direct')) include($system['location_php'] . '/lib/prevent-direct.php'); prevent_direct('default.php'); ?>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -12,6 +12,7 @@
 				Username: <input type="text" name="user"><span id="login_hostname">@<?php echo $_SERVER['HTTP_HOST']; ?></span><br>
 				Password: <input type="password" name="password"><br>
 				<input type="submit" value="Login" class="system_button">
+				<?php echo csrf_injectToken(); ?>
 			</form>
 			<br>
 			<div id="system_login_content">

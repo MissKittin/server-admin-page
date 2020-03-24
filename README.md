@@ -21,4 +21,5 @@ panic button - create 'DISABLED.MAIN' file in the root dir
 # webadmin
 make new directory `www` in `debian-router/usr/local/share/router/webadmin`, put content from `server-admin-page/www` to `debian-router/usr/local/share/router/webadmin/www` and run `debian-router/usr/local/share/router/webadmin/www/setup.sh`<br>
 clone modules, and merge content in `debian-router/usr/local/share/router/webadmin/www`, setup<br>
-you can now setup debian-router
+you can now setup debian-router<br>
+**run `chown root:YOUR_UNPRIVILEGED_USER /usr/local/share/www/lib/login/login-config.php` and `chown root:YOUR_UNPRIVILEGED_USER /usr/local/share/www/lib/shell/superuser.sh` after deployment**

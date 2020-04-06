@@ -41,8 +41,6 @@
 		// define
 		$csrf_generateToken=function()
 		{
-			global $_SESSION;
-
 			// use one token per session
 			//if(!isset($_SESSION['csrf_token']))
 			//	$_SESSION['csrf_token']=substr(base_convert(sha1(uniqid(mt_rand())), 16, 36), 0, 32);
@@ -53,8 +51,6 @@
 		};
 		function csrf_checkToken($method)
 		{
-			global $_SESSION;
-			global $_GET; global $_POST;
 			if(isset($_SESSION['csrf_token']))
 				switch($method)
 				{
@@ -73,7 +69,6 @@
 		}
 		function csrf_printToken($parameter)
 		{
-			global $_SESSION;
 			switch($parameter)
 			{
 				case 'parameter':
@@ -87,7 +82,6 @@
 		}
 		function csrf_injectToken()
 		{
-			global $_SESSION;
 			return '<input type="hidden" name="csrf_token" value="' . $_SESSION['csrf_token'] . '">' . "\n";
 		}
 	}

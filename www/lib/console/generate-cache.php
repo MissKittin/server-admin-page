@@ -36,6 +36,7 @@
 
 	// generate htmlheaders cache
 	echo 'Generating html headers cache...';
+	file_put_contents($system['location_php'] . '/cache_htmlheaders.php', ''); // clear
 	foreach(scandir($system['location_htmlheaders']) as $htmlheader)
 		if(($htmlheader !== '.') || ($htmlheader !== '..'))
 			if(!@file_put_contents($system['location_php'] . '/cache_htmlheaders.php', file_get_contents($system['location_htmlheaders'] . '_min/' . $htmlheader), FILE_APPEND)) // try import minified version

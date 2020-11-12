@@ -56,13 +56,21 @@
 				{
 					case 'get':
 						if(isset($_GET['csrf_token']))
+						{
 							if($_SESSION['csrf_token'] === $_GET['csrf_token'])
 								return true;
+							else
+								error_log('! CSRF GET attack from ' . $_SERVER['REMOTE_ADDR'], 0);
+						}
 					break;
 					case 'post':
 						if(isset($_POST['csrf_token']))
+						{
 							if($_SESSION['csrf_token'] === $_POST['csrf_token'])
 								return true;
+							else
+								error_log('! CSRF POST attack from ' . $_SERVER['REMOTE_ADDR'], 0);
+						}
 					break;
 				}
 			return false;

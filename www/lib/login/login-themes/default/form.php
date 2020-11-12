@@ -1,4 +1,4 @@
-<?php if(!function_exists('prevent_direct')) include($system['location_php'] . '/lib/prevent-direct.php'); prevent_direct('default.php'); ?>
+<?php if(!function_exists('prevent_direct')) include($system['location_php'] . '/lib/prevent-direct.php'); prevent_direct('form.php'); ?>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -6,7 +6,7 @@
 		<?php include($system['location_php'] . '/lib/htmlheaders.php'); ?>
 	</head>
 	<body>
-		<div id="login_body">
+		<div id="login_body" style="margin-left: 5px;">
 			<h1><?php echo $system['title']; ?> Login</h1>
 			<form action="." method="post">
 				Username: <input type="text" name="user"><span id="login_hostname">@<?php echo $_SERVER['HTTP_HOST']; ?></span><br>

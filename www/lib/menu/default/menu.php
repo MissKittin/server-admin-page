@@ -34,7 +34,7 @@
 				filter plugin directories, filter disabled plugins, decide if it's plugin or addon
 				include descriptions
 				for plugins:
-					if category is ok, check if plugin is last, print link
+					if category is ok, check if plugin is last (if is, check if category is 'none'), print link
 				for addons:
 					if category is ok, include menu part
 		*/
@@ -93,7 +93,12 @@
 						include './' . $plugin . '/description.php';
 						if($category === $categories[$i]) // check if category is correct
 							if($plugin === $plugin_last)
-								echo '&#9492;&#9472;<a href="' . $system['location_html'] . '/' . $plugin . '">' . $name . '</a><br>' . "\n";
+							{
+								if($category === 'none') // if last plugin hasn't category (10.06.2020)
+									echo '&#9492;<a href="' . $system['location_html'] . '/' . $plugin . '">' . $name . '</a><br>' . "\n";
+								else
+									echo '&#9492;&#9472;<a href="' . $system['location_html'] . '/' . $plugin . '">' . $name . '</a><br>' . "\n";
+							}
 							else
 								echo '&#9500;&#9472;<a href="' . $system['location_html'] . '/' . $plugin . '">' . $name . '</a><br>' . "\n";
 					}

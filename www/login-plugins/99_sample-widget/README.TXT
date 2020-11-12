@@ -4,5 +4,5 @@
 4. Remove disabled
 5. Write code to widget-name.php
 6. Always debug your code!
-7. Remove readme.txt
+7. Remove README.TXT
 8. Don't touch index.php (why - see inside)

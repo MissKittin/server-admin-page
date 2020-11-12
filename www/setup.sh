@@ -18,13 +18,8 @@ cd ../../lib
 [ -e index.php ] && rm index.php
 ln -s prevent-index.php index.php
 
-echo 'favicon'
-cd favicon
-[ -e index.php ] && rm index.php
-ln -s ../prevent-index.php index.php
-
 echo 'console'
-cd ../console
+cd ./console
 [ -e index.php ] && rm index.php
 ln -s ../prevent-index.php index.php
 
@@ -34,12 +29,17 @@ cd ../login
 ln -s ../prevent-index.php index.php
 
 echo 'login-themes'
-cd ../login-themes
+cd ./login-themes
 [ -e index.php ] && rm index.php
-ln -s ../prevent-index.php index.php
+ln -s ../../prevent-index.php index.php
+
+echo 'login-themes/default'
+cd ./default
+[ -e index.php ] && rm index.php
+ln -s ../../../prevent-index.php index.php
 
 echo 'menu'
-cd ../menu
+cd ../../../menu
 [ -e index.php ] && rm index.php
 ln -s ../prevent-index.php index.php
 
@@ -47,7 +47,12 @@ echo 'menu/default'
 cd default
 [ -e index.php ] && rm index.php
 ln -s ../../prevent-index.php index.php
-cd ..
+
+echo 'menu/default/theme'
+cd theme
+[ -e index.php ] && rm index.php
+ln -s index.min.php index.php
+cd ../..
 
 #echo 'htmlheaders'
 #cd ../htmlheaders
@@ -59,8 +64,13 @@ cd ../themes
 [ -e index.php ] && rm index.php
 ln -s ../prevent-index.php index.php
 
+echo 'themes/default'
+cd ./default
+[ -e index.php ] && rm index.php
+ln -s index.min.php index.php
+
 echo 'login-plugins'
-cd ../../login-plugins
+cd ../../../login-plugins
 [ -e index.php ] && rm index.php
 ln -s ../lib/prevent-index.php index.php
 

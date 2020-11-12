@@ -3,4 +3,4 @@
 3. Write page inside index.php (this is your template)
 4. Remove disabled
 5. Debug your code
-6. Remove readme.txt
+6. Remove README.TXT

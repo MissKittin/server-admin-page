@@ -2,14 +2,14 @@
 	// Server admin page - Router modular web admin
 	// 3.0 11-13.08.2019
 	// 3.1 27-29.09.2019
-	// 3.1u1 03-??.03.2020
+	// 3.1u1-u2 03.03-23.07.2020
 	// this script must be executed first
 
 	// Scripts settings
 	$system['location_html']=''; // none if in root directory, for browser
 	$system['location_php']=$_SERVER['DOCUMENT_ROOT'] . ''; // for php scripts
 	$system['title']='Router'; // <title>
-	$system['theme']='dark'; // see lib/htmlheaders/theme.php
+	$system['theme']='default'; // see lib/htmlheaders/theme.php
 	$system['login_theme']='default'; // form, see lib/login-themes
 	$system['menu']='default'; // see lib/menu/menu.php
 	$system['location_htmlheaders']=$system['location_php'] . '/lib/htmlheaders';
@@ -29,6 +29,9 @@
 
 	// prevent cross-frame scripting
 	header('X-Frame-Options: DENY');
+
+	// start gzip handler
+	if(pathinfo($_SERVER['SCRIPT_NAME'], PATHINFO_EXTENSION) === 'php') ob_start('ob_gzhandler');
 
 	// disable switch
 	if((file_exists($system['location_php'] . '/DISABLED.MAIN')) && ($_SERVER['REMOTE_ADDR'] != '127.0.0.1'))

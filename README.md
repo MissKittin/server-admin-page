@@ -18,7 +18,6 @@ panic button - create `DISABLED.MAIN` file in the root dir
 
 ### Extras
 fadeanimations -> fade in/out animations on body load/unload  
-module-compatibility -> run older modules on server-admin-page v3.1  
 mobileview -> adjust layout for mobile devices  
 bright theme -> default theme with better colors  
 dark theme
